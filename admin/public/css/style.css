@@ -1,0 +1,13 @@
+.fa-star{
+    color: #ffc400;
+
+}
+.login-form{
+    width: 60%;
+    margin: auto;
+    margin-top: 30px;
+    height: 300px;
+    padding: 20px;
+    border: 2px solid indianred;
+    border-radius: 25px;
+}
