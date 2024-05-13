@@ -1,6 +1,12 @@
 .fa-star{
     color: #ffc400;
+}
+.fa-trash{
+    color: red;
+}
 
+.fa-edit{
+    color:green;
 }
 .login-form{
     width: 60%;
@@ -10,4 +16,14 @@
     padding: 20px;
     border: 2px solid indianred;
     border-radius: 25px;
+}
+
+.navbar{
+    margin-bottom: 30px;
+}
+#contenu{
+    margin-top: 30px;
+}
+label{
+    font-weight: bold;
 }

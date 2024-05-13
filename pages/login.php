@@ -3,21 +3,22 @@ if (isset($_POST['submit_login'])) { //name du submit
     extract($_POST,EXTR_OVERWRITE);
     //var_dump($_POST);
     $ad = new UserDB($cnx);
-    $admin = $ad->getUser($login,$password);//$admin reçoit 1 ou 0
-    if($admin==1){
+    $user = $ad->getUser($login,$password);//$admin reçoit 1 ou 0
+    $_SESSION['user']=$user;
+    if($user==1){
         //créer variable de session pour admin
-        $_SESSION['user']=$admin; //sera vérifiée dans toutes les pages admin
+        //sera vérifiée dans toutes les pages admin
         ////rediriger vers dossier admin
         ?>
-        <meta http-equiv="refresh" content="0;URL=./admin/index.php">
+        <meta http-equiv="refresh" content="0;URL=./admin/index.php?page=accueil_admin.php">
         <?php
 
     }else {
         //rediriger vers accueil public
-        $_SESSION['user']=$admin; //sera vérifiée dans toutes les pages admin
+        //sera vérifiée dans toutes les pages admin
         //print "<br>Accès réservé aux administrateurs";
         ?>
-        <meta http-equiv="refresh" content="3;URL=index.php?page=accueil.php">
+        <meta http-equiv="refresh" content="0;URL=index.php?page=accueil.php">
         <?php
     }
 }
@@ -39,5 +40,4 @@ if (isset($_POST['submit_login'])) { //name du submit
         <br>
         <button type="submit" name="submit_login" class="btn btn-danger">Se connecter</button>
     </form>
-
 </div>

@@ -5,7 +5,7 @@ require './admin/src/php/utils/liste_includes.php';
 <!doctype html>
 <html lang="fr">
 <head>
-    <title>Demo 2023-2024</title>
+    <title>Projet recette</title>
     <meta charset="utf-8">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
@@ -29,7 +29,7 @@ require './admin/src/php/utils/liste_includes.php';
     <div id="contenu">
         <?php
         //si aucune variable de session 'page'
-        if (!isset($_SESSION['page'])) {
+        if (!isset($_SESSION['page'])){
             $_SESSION['page'] = './pages/accueil.php';
         }
         if (isset($_GET['page'])) {
