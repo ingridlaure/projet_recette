@@ -11,9 +11,6 @@ class ChefDB
         $this->_bd = $cnx;
     }
 
-//A REFAIRE -->infâme
-
-
     public function ajout_chef($nom,$prenom,$experience,$email,$telephone,$adresse){
         try{
             $query="select ajout_chef(:nom,:prenom,:experience,:email,:telephone,:adresse)";
@@ -61,19 +58,6 @@ class ChefDB
 
         }
     }
-
-    /*public function getClientByEmail($email){
-        try{
-            $query="select * from client where email = :email";
-            $res = $this->_bd->prepare($query);
-            $res->bindValue(':email',$email);
-            $res->execute();
-            $data = $res->fetch();
-            return $data;
-        }catch(PDOException $e){
-            print "Echec ".$e->getMessage();
-        }
-    }*/
 
     public function getAllChefs(){
         try{

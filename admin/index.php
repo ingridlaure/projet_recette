@@ -1,8 +1,9 @@
+
+<!DOCTYPE html>
 <?php
 session_start();
 require './src/php/utils/liste_includes.php';
 ?>
-<!doctype html>
 <html lang="fr">
 <head>
     <title>Projet recette</title>
