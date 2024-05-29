@@ -70,82 +70,92 @@ $(document).ready(function () {
     $("#ajout_ingredient").click(function () {
         console.log('bine cliqué');
         nombre++;
-        let html = "<tr id='row"+nombre+"'>";
+        let html = "<tr id='row" + nombre + "'>";
         html += "<td>" + nombre + "</td>";
         html += "<td><input class='form-control ingredient_name' name='ingredientName[]'></td>";
         html += "<td><input class='form-control ingredient_quantity' name='ingredientQuantity[]'></td>";
         html += "<td><input class='form-control ingredient_unit' name='ingredientUnit[]'></td>";
-        html += "<td><button type='button' class='btn remove_ingredient' id='"+nombre+"'><i class='fa fa-trash'></i></button></td>";
+        html += "<td><button type='button' class='btn remove_ingredient' id='" + nombre + "'><i class='fa fa-trash'></i></button></td>";
         html += "</tr>";
         //document.getElementById("tbody_ingredient").insertRow().innerHTML = html;
         $("#tbody_ingredient").append(html);
     });
 
-    $(document).on('click','.remove_ingredient', function(){
+    $(document).on('click', '.remove_ingredient', function () {
         console.log("bien cliqué");
-       var row_id=$(this).attr('id');
-       $('#row'+row_id+'').remove();
+        var row_id = $(this).attr('id');
+        $('#row' + row_id + '').remove();
         //ligne.fadeOut();
     })
 
-    $('#form_ajout_recette').on('submit',function(event){
+    $('#form_ajout_recette').on('submit', function (event) {
         event.preventDefault();
-        var error='';
-        var error2='';
-        if($('#nom_recette').val()===''){
-            error2+='<p>Entrez le nom de la recette</p>';
+        var error = '';
+        var error2 = '';
+        if ($('#nom_recette').val() === '') {
+            error2 += '<p>Entrez le nom de la recette</p>';
         }
-        if($('#description').val()==='') {
+        if ($('#description').val() === '') {
             error2 += '<p>Saisir la description de la recette</p>';
         }
-        if($('#chef').val()===''){
-            error2+='<p>selectionnez un chef</p>';
+        if ($('#chef').val() === '') {
+            error2 += '<p>selectionnez un chef</p>';
         }
-        var count=1;
-        $('.ingredient_name').each(function(){
-            if($(this).val()===''){
-                error+="<p>Entre le nom d'ingredient à la ligne "+count+"</p>";
+        var count = 1;
+        $('.ingredient_name').each(function () {
+            if ($(this).val() === '') {
+                error += "<p>Entre le nom d'ingredient à la ligne " + count + "</p>";
                 return false;
             }
-            count=count+1;
+            count = count + 1;
         });
-        var count2=1;
-        $('.ingredient_quantity').each(function(){
-            if($(this).val()===''){
-                error+="<p>Entre la quantite à la ligne "+count2+"</p>";
+        var count2 = 1;
+        $('.ingredient_quantity').each(function () {
+            if ($(this).val() === '') {
+                error += "<p>Entre la quantite à la ligne " + count2 + "</p>";
                 return false;
             }
-            count2=count2+1;
+            count2 = count2 + 1;
         });
-        var count3=1;
-        $('.ingredient_unit').each(function(){
-            if($(this).val()===''){
-                error+="<p>selectionner l'unite la ligne "+count3+"</p>";
+        var count3 = 1;
+        $('.ingredient_unit').each(function () {
+            if ($(this).val() === '') {
+                error += "<p>selectionner l'unite la ligne " + count3 + "</p>";
                 return false;
             }
-            count3=count3+1;
+            count3 = count3 + 1;
         });
-        var form_data=$(this).serialize();
-
-        if(error===''&& error2===''){
+        //var form_data=$(this).serialize();
+        //var form_data=new FormData(this);
+        var form_data = new FormData(this);
+        if (error === '' && error2 === '') {
             console.log(form_data);
             $("#error").html('');
             $("#error2").html('');
             $.ajax({
-                url:"./src/php/ajax/ajaxAjoutRecette.php",
-                method:"POST",
-                data:form_data,
-                success:function(data){
-                    if(data==='ok'){
+                url: "./src/php/ajax/ajaxAjoutRecette.php",
+                method: "POST",
+                data: form_data,
+                contentType: false,
+                cache: false,
+                processData: false,
+                dataType:'JSON',
+                success: function (data) {
+                    $('h1').text(data.output);
+                    console.log(data);
+                    console.log("succes");
+                    /*if (data === 'ok') {
                         $('#ingredient_table').find("tr:gt(0)").remove();
                         $("#error2").html('<div class="alert alert-success">recette enregistré avec succes</div>');
-                    }
-                }
-            })
+                        console.log("succes");
+                    }*/
+                },error:function(){
+                    console.log("echec");
+            }})
 
-        }else{
-            $("#error").html('<div class="alert alert-danger">'+error+'</div>');
-            $("#error2").html('<div class="alert alert-danger">'+error2+'</div>');
+        } else {
+            $("#error").html('<div class="alert alert-danger">' + error + '</div>');
+            $("#error2").html('<div class="alert alert-danger">' + error2 + '</div>');
         }
     })
 

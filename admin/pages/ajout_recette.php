@@ -7,6 +7,7 @@ $nbr = count($liste);
 
 ?>
 <div class="container ajout_chef-form">
+    <h1></h1>
     <form id="form_ajout_recette" method="POST" action="">
         <h2 class="text-center">Ajout d'une recette</h2>
         <span id="error2"></span>
