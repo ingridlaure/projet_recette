@@ -10,6 +10,7 @@ $(document).ready(function () {
         let adresse = $('#adresse').val();
         let telephone = $('#telephone').val();
         let param = 'nom=' + nom + '&prenom=' + prenom + '&experience=' + experience + '&email=' + email + '&telephone=' + telephone + '&adresse=' + adresse;
+        console.log(param);
         let retour = $.ajax({
             type: 'get',
             dataType: 'json',
@@ -72,12 +73,11 @@ $(document).ready(function () {
         nombre++;
         let html = "<tr id='row" + nombre + "'>";
         html += "<td>" + nombre + "</td>";
-        html += "<td><input class='form-control ingredient_name' name='ingredientName[]'></td>";
-        html += "<td><input class='form-control ingredient_quantity' name='ingredientQuantity[]'></td>";
-        html += "<td><input class='form-control ingredient_unit' name='ingredientUnit[]'></td>";
+        html += "<td><input type='text' class='form-control ingredient_name' name='ingredientName[]'></td>";
+        html += "<td><input type='number' class='form-control ingredient_quantity' name='ingredientQuantity[]'></td>";
+        html += "<td><input type='text' class='form-control ingredient_unit' name='ingredientUnit[]'></td>";
         html += "<td><button type='button' class='btn remove_ingredient' id='" + nombre + "'><i class='fa fa-trash'></i></button></td>";
         html += "</tr>";
-        //document.getElementById("tbody_ingredient").insertRow().innerHTML = html;
         $("#tbody_ingredient").append(html);
     });
 
@@ -88,10 +88,11 @@ $(document).ready(function () {
         //ligne.fadeOut();
     })
 
-    $('#form_ajout_recette').on('submit', function (event) {
-        event.preventDefault();
+
+    $('#submit_ajout_recette').click(function (event) {
         var error = '';
         var error2 = '';
+        event.preventDefault();
         if ($('#nom_recette').val() === '') {
             error2 += '<p>Entrez le nom de la recette</p>';
         }
@@ -125,33 +126,65 @@ $(document).ready(function () {
             }
             count3 = count3 + 1;
         });
-        //var form_data=$(this).serialize();
-        //var form_data=new FormData(this);
-        var form_data = new FormData(this);
         if (error === '' && error2 === '') {
-            console.log(form_data);
             $("#error").html('');
             $("#error2").html('');
-            $.ajax({
+            let nom_recette = $('#nom_recette').val(); // a continuer ici
+            let description = $('#description').val();
+            let nbre_part = $('#nombre_part').val();
+            let temps = $('#temps_cuisson').val();
+            let chef = $('#chef').val();
+            let niveau = $('#difficulte').val();
+            let categorie = $('#categorie').val();
+
+            let param = 'nom_recette=' + nom_recette + '&description=' + description + '&nbre_part=' + nbre_part + '&temps=' + temps + '&chef=' + parseInt(chef) + '&niveau=' + niveau + '&categorie=' + categorie;
+            let param2 = '';
+            var ingredient = document.getElementsByName('ingredientName');
+            var quantite = document.getElementsByName('ingredientQuantity');
+            var unite = document.getElementsByName('ingredientUnit');
+            /*for (let i = 1; i <= nombre; i++) {
+                param2 +='&ingredient'+i+'='+ingredient[i].text+'&quantite'+i+'='+quantite[i].text+'&unite'+i+'='+unite[i].text;
+            }*/
+
+            var ingredient_name = [];
+            var ingredient_quantity = [];
+            var ingredient_unit = [];
+            $('.ingredient_name').each(function () {
+                ingredient_name.push($(this).val());
+            });
+            $('.ingredient_quantity').each(function () {
+                ingredient_quantity.push($(this).val());
+            });
+            $('.ingredient_unit').each(function () {
+                ingredient_unit.push($(this).val());
+            });
+            for (let i = 0; i < nombre; i++) {
+                param2 +='nombre='+nombre+'&ingredient'+i+'='+ingredient_name[i]+'&quantity'+i+'='+ingredient_quantity[i]+'&unit'+i+'='+ingredient_unit[i];
+            }
+            console.log(param2);
+            let retour = $.ajax({
+                type: 'get',
+                dataType: 'json',
+                data: param,
                 url: "./src/php/ajax/ajaxAjoutRecette.php",
-                method: "POST",
-                data: form_data,
-                contentType: false,
-                cache: false,
-                processData: false,
-                dataType:'JSON',
                 success: function (data) {
-                    $('h1').text(data.output);
-                    console.log(data);
                     console.log("succes");
-                    /*if (data === 'ok') {
-                        $('#ingredient_table').find("tr:gt(0)").remove();
-                        $("#error2").html('<div class="alert alert-success">recette enregistré avec succes</div>');
-                        console.log("succes");
-                    }*/
-                },error:function(){
-                    console.log("echec");
-            }})
+                    console.log(data);
+                    $('#ingredient_table').find("tr:gt(0)").remove();
+                    $("#error2").html('<div class="alert alert-success">recette enregistré avec succes</div>');
+                    $('#form_ajout_recette').reset();
+                    console.log("succes");
+                },
+            })
+            let retour2 = $.ajax({
+                type: 'get',
+                dataType: 'json',
+                data: param2,
+                url: "./src/php/ajax/ajaxAjoutIngredient.php",
+                success: function (data) {
+                    console.log("succes ingredient");
+                },
+            })
 
         } else {
             $("#error").html('<div class="alert alert-danger">' + error + '</div>');
@@ -159,29 +192,6 @@ $(document).ready(function () {
         }
     })
 
-    /*$('#submit_ajout_recette').click(function (e) { //e = formulaire
-        e.preventDefault(); //empêcher l'attribut action de form
-        let nom = $('#nom_recette').val();
-        let description = $('#description').val();
-        let nombre_part = $('#nombre_part').val();
-        let photo = $('#image_recette').val();
-        let temps = $('#temps_cuisson').val();
-        let idchef=$('#chef').val();
-        let niveau=$('#difficulte').val();
-        let categorie=$('#categorie').val();
-
-        let param = 'nom=' + nom + '&description=' + description + '&nombre_part=' + nombre_part + '&photo=' + photo + '&temps=' + temps + '&idchef=' + idchef+ '&niveau=' + niveau+ '&categorie=' + categorie;
-
-        let retour = $.ajax({
-            type: 'get',
-            dataType: 'json',
-            data: param,
-            url: './src/php/ajax/ajaxAjoutRecette.php',
-            success: function (data) {//data = retour du # php
-                console.log(data);
-            }
-        })
-    })*/
 })
 
 

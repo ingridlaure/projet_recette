@@ -7,8 +7,8 @@ $nbr = count($liste);
 
 ?>
 <div class="container ajout_chef-form">
-    <h1></h1>
-    <form id="form_ajout_recette" method="POST" action="">
+    <h1 class="statusMsg'">hhhhh</h1>
+    <form id="form_ajout_recette" method="GET" action="" enctype="multipart/form-data">
         <h2 class="text-center">Ajout d'une recette</h2>
         <span id="error2"></span>
         <div class="form-group">
@@ -43,7 +43,7 @@ $nbr = count($liste);
             <div class="col">
                 <div class="form-group">
                     <label for="categorie">Categorie</label>
-                    <select name="caegorie" id="categorie" class="form-select w-100">
+                    <select name="categorie" id="categorie" class="form-select w-100">
                         <option value="plat_chaud">Plat chaud</option>
                     </select>
                 </div>
@@ -61,12 +61,6 @@ $nbr = count($liste);
                 <div class="form-group">
                     <label for="temps_cuisson">Temps de cuisson</label>
                     <input type="text" name="temps_cuisson" class="form-control" id="temps_cuisson">
-                </div>
-            </div>
-            <div class="col">
-                <div class="mb-3">
-                    <label for="image_recette" class="form-label">Choisissez une image pour la recette</label>
-                    <input class="form-control" type="file" id="image_recette">
                 </div>
             </div>
         </div>
@@ -89,8 +83,9 @@ $nbr = count($liste);
             </tbody>
         </table>
         <br><br>
-        <button type="submit" id="submit_ajout_recette" name="submit_ajout_recette" value="Ajouter" class="btn btn-danger">Enregistrer</button>
+        <button type="submit" id="submit_ajout_recette" name="submit_ajout_recette" class="btn btn-danger">Enregistrer</button>
         <button type="reset" id="reset_ajout_recette" value="Annuler" class="btn btn-secondary">Annuler</button>
-
     </form>
 </div>
+
+

@@ -28,5 +28,26 @@ class CompositionDB
         }
     }
 
+    public function derniereRecette(){
+        try{
+            $query="select max(id_recette) from recette";
+            $res = $this->_bd->prepare($query);
+            $res->execute();
+            $data = $res->fetch();
+            if(!empty($data))  {
+                foreach($data as $d) {
+                    $_array[] = $d;
+                }
+                return $_array;
+            }
+            else{
+                return null;
+            }
+        }catch(PDOException $e){
+            print "Echec ".$e->getMessage();
+
+        }
+    }
+
 }
 

@@ -11,24 +11,24 @@ class RecetteDB
         $this->_bd = $cnx;
     }
 
-    public function ajout_recette($nom,$description,$nbre_part,$photo,$temps,$idchef,$niveau,$categorie){
+    public function ajout_recette($nom,$description,$nbre_part,$temps,$idchef,$niveau,$categorie){
         try{
-            $query="select ajout_recette(:nom,:description,:nbre_part,:photo,:temps,:idchef,:niveau,:categorie)";
+            $query="select ajout_recette(:nom,:description,:nbre_part,:temps,:idchef,:niveau,:categorie)";
             $res = $this->_bd->prepare($query);
             $res->bindValue(':nom',$nom);
-            $res->bindValue(':desciption',$description);
+            $res->bindValue(':description',$description);
             $res->bindValue(':nbre_part',$nbre_part);
-            $res->bindValue(':photo',$photo);
             $res->bindValue(':temps',$temps);
             $res->bindValue(':idchef',$idchef);
             $res->bindValue(':niveau',$niveau);
             $res->bindValue(':categorie',$categorie);
             $res->execute();
-            $this->_bd->commit();
             $data = $res->fetch();
+            $this->_bd->commit();
             return $data;
         }catch(PDOException $e){
             print "Echec ".$e->getMessage();
+            return 0;
         }
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 header('Content-Type: application/json');
 require '../db/dbPgConnect.php';
 require '../classes/Connexion.class.php';
@@ -8,12 +9,18 @@ require '../classes/Composition.class.php';
 require '../classes/CompositionDB.class.php';
 $cnx = Connexion::getInstance($dsn, $user, $password);
 
-$rc = new RecetteDB($cnx);
 $cp = new CompositionDB($cnx);
 
+$id=$cp->derniereRecette();
+var_dump($id);
 
-$recette= $rc->ajout_recette($_GET['nom_recette'], $_GET['description'], $_GET['nbre_part'],$_GET['temps'], $_GET['chef'], $_GET['niveau'], $_GET['categorie']);
-print json_encode($recette);
+for ($count = 0; $count < $_GET['nombre']; $count++) {
+    $data[] = $cp->ajout_ingredient($id[0], $_GET['ingredient'.$count], $_GET['quantity'.$count], $_GET['unit'.$count]);
+}
+
+print json_encode($data);
+
+
 
 
 
