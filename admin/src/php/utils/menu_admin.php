@@ -16,7 +16,7 @@
                 </li>
             </ul>
             <i class="fa-solid fa-user"></i><a class="nav-link" href="">compte</a>
-            <a href="index.php?page=./index.php?page=login.php">Connexion</a>
+            <a href="../index.php?page=login.php">Connexion</a>
         </div>
     </div>
 </nav>

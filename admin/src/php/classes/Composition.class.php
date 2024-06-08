@@ -1,6 +1,5 @@
 <?php
-
-class Compositiion
+class Composition
 {
     private $_attributs = array();
 
@@ -11,13 +10,13 @@ class Compositiion
 
     public function hydrate(array $data)
     {
-        foreach ($data as $champ => $valeur) { //chaque champ est créé et associé à sa valeur
+        foreach ($data as $champ => $valeur) {
             $this->$champ = $valeur;
         }
     }
 
     public function __get($champ)
-    { //champ = clé
+    {
         if (isset($this->_attributs[$champ])) {
             return $this->_attributs[$champ];
         }

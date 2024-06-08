@@ -1,8 +1,49 @@
 $(document).ready(function () {
-    $('select').selectpicker();
+    //$('select').selectpicker();
+    /*let nom="";
+    let categorie="";
+    let param="action=filtrer";
+    $('#filtre_nom').change(function () {
+        nom = $('#filtre_nom').val();
+        param += "&nom=" + nom;
+        console.log(param);
+        $.ajax({
+            url: '/admin/src/php/ajax/ajaxFilterData.php',
+            method: 'post',
+            data: param,
+            success(result) {
+                $('#show_data').html(result)
+            }
+        })
+})*/
+    let param = 'categorie=tous';
+    $('#filtre_categorie').change(function () {
+        let categorie = $('#filtre_categorie').val();
+        param = "categorie=" + categorie;
+        console.log(param);
+        console.log(param); $.ajax({
+            url: './admin/src/php/ajax/ajaxListeRecette.php',
+            method: 'post',
+            dataType: 'html',
+            data: param,
+            success: function (result) {
+                $('#show_data').html(result)
+            }
+        });
+    })
+    console.log(param); $.ajax({
+        url: './admin/src/php/ajax/ajaxListeRecette.php',
+        method: 'post',
+        dataType: 'html',
+        data: param,
+        success: function (result) {
+            $('#show_data').html(result)
+        }
+    });
 
-    $('#submit_ajout_chef').click(function (e) { //e = formulaire
-        e.preventDefault(); //empêcher l'attribut action de form
+
+    $('#submit_ajout_chef').click(function (e) {
+        e.preventDefault();
         let nom = $('#nom').val();
         let prenom = $('#prenom').val();
         let experience = $('#experience').val();
@@ -159,7 +200,7 @@ $(document).ready(function () {
                 ingredient_unit.push($(this).val());
             });
             for (let i = 0; i < nombre; i++) {
-                param2 +='nombre='+nombre+'&ingredient'+i+'='+ingredient_name[i]+'&quantity'+i+'='+ingredient_quantity[i]+'&unit'+i+'='+ingredient_unit[i];
+                param2 += 'nombre=' + nombre + '&ingredient' + i + '=' + ingredient_name[i] + '&quantity' + i + '=' + ingredient_quantity[i] + '&unit' + i + '=' + ingredient_unit[i];
             }
             console.log(param2);
             let retour = $.ajax({
@@ -191,7 +232,6 @@ $(document).ready(function () {
             $("#error2").html('<div class="alert alert-danger">' + error2 + '</div>');
         }
     })
-
 })
 
 

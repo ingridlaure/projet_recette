@@ -44,7 +44,11 @@ $nbr = count($liste);
                 <div class="form-group">
                     <label for="categorie">Categorie</label>
                     <select name="categorie" id="categorie" class="form-select w-100">
-                        <option value="plat_chaud">Plat chaud</option>
+                            <option value="plat_chaud">Plat chaud</option>
+                            <option value="plat_froid">Plat froid</option>
+                            <option value="salade">Salade</option>
+                            <option value="patisserie">Patisserie</option>
+                            <option value="dessert">Dessert</option>
                     </select>
                 </div>
             </div>
