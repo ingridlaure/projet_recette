@@ -2,5 +2,5 @@
 require 'src/php/utils/verifier_connexion.php';
 ?>
 
-Bienvenu dans la page administrateur
+<h2>Bienvenu dans la page administrateur du site gestion des recettes</h2>
 

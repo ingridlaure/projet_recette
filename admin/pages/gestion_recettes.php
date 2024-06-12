@@ -42,7 +42,6 @@ if ($liste != null) {
                     name="annee_exp"><?= $liste[$i]->temp_cuiss; ?></td>
                 <td  id="<?= $liste[$i]->id_recette; ?>"
                     name="telephone"><?= $liste[$i]->nbre_part; ?></td>
-                <!--<td contenteditable="true"><img src="public/images/delete.jpg" alt="Effacer" id="delete"></td>-->
             </tr>
             <?php
         }

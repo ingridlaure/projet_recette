@@ -11,7 +11,8 @@ if (isset($_POST['submit_login'])) { //name du submit
         <?php
     }else {
         ?>
-        <meta http-equiv="refresh" content="0;URL=index.php?page=accueil.php">
+        <br>Accès réservé aux administrateurs;
+        <meta http-equiv="refresh" content="2;URL=index.php?page=accueil.php">
         <?php
     }
 }
@@ -24,7 +25,6 @@ if (isset($_POST['submit_login'])) { //name du submit
         <div class="form-group">
             <label for="login">Nom d'utilisateur</label>
             <input type="text" name="login" class="form-control" id="login" aria-describedby="emailHelp" placeholder="Entrer le login">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
         <div class="form-group">
             <label for="password">Mot de passe</label>

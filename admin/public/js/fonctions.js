@@ -207,7 +207,9 @@ $(document).ready(function () {
                     $('#ingredient_table').find("tr:gt(0)").remove();
                     $('#form_ajout_recette').reset();
                     console.log("succes");
-                },
+                    alert("Recette enregistré avec success");
+                }
+
             })
             let retour2 = $.ajax({
                 type: 'get',
@@ -218,13 +220,15 @@ $(document).ready(function () {
                     console.log("succes ingredient");
                 }
             })
+            $('#submit_ajout_recette').submit();
+            window.location.href = "index.php?page=gestion_recettes.php";
+            event.currentTarget.submit();
             $("#succes").html('<div class="alert alert-success">recette enregistré avec succes</div>');
         } else {
             $("#error").html('<div class="alert alert-danger">' + error + '</div>');
             $("#error2").html('<div class="alert alert-danger">' + error2 + '</div>');
         }
-        alert("Recette enregistré avec success");
-        window.location.href = "index.php?page=gestion_recettes.php";
+
     })
     $('#form_noter').hide();
     $('#oui_noter').click(function () {
