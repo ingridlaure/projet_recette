@@ -9,11 +9,6 @@ bienvenu sur le site des recette
 <form>
     <div class="row">
         <div class="col">
-            <label for="categorie">Recherche par nom</label>
-                <input class="form-control me-2" type="search" placeholder="Rechercher une recette par son nom" aria-label="Search" id="filtre_nom" name="filtre_nom">
-                <!--<button class="btn btn-danger" type="submit"> valider</button>-->
-        </div>
-        <div class="col">
             <label for="categorie">Recherche par categorie</label>
             <select  class="form-select" name="filtre_categorie" id="filtre_categorie">
                 <option value="tous" selected>Tous</option>
@@ -33,5 +28,6 @@ bienvenu sur le site des recette
         </div>
     </div>
 </div>
+
 
 

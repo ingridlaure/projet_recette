@@ -2,8 +2,7 @@
 require 'src/php/utils/verifier_connexion.php';
 //récupération des clients et affichage dans table bootstrap
 $chefs = new ChefDB($cnx);
-$liste = $chefs->getAllChefs();
-//var_dump($liste);
+$liste = $chefs->getAllChefs();;
 $nbr = count($liste);
 ?>
 <h2 class="text-center">Gestion des chefs</h2>
@@ -47,7 +46,7 @@ if ($nbr == 0) {
                     name="telephone"><?= $liste[$i]->telephone; ?></td>
                 <td contenteditable="true" id="<?= $liste[$i]->id_cheft; ?>"
                     name="adresse"><?= $liste[$i]->adresse; ?></td>
-                <td><i id="<?= $liste[$i]->id_chef; ?>" class="fa fa-edit"></i>&nbsp;&nbsp;&nbsp;
+                <td>&nbsp;
                     <i id="<?= $liste[$i]->id_chef; ?>" class="fa fa-trash"></i></td>
 
                 <!--<td contenteditable="true"><img src="public/images/delete.jpg" alt="Effacer" id="delete"></td>-->
@@ -80,37 +79,3 @@ if ($nbr == 0) {
         </div>
     </div>
 </div>
-
-<!--
-<h2 class="text-center">Gestion des chefs</h2>
-<button class="btn btn-danger"><i class="fa fa-plus"></i><a href="index.php?page=ajout_chef.php">Nouveau chef</a></button><br>
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-    </tr>
-    <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-    </tr>
-    <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-    </tr>
-    </tbody>
-</table>-->

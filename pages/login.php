@@ -6,17 +6,10 @@ if (isset($_POST['submit_login'])) { //name du submit
     $user = $ad->getUser($login,$password);//$admin reçoit 1 ou 0
     $_SESSION['user']=$user;
     if($user==1){
-        //créer variable de session pour admin
-        //sera vérifiée dans toutes les pages admin
-        ////rediriger vers dossier admin
         ?>
         <meta http-equiv="refresh" content="0;URL=./admin/index.php?page=accueil_admin.php">
         <?php
-
     }else {
-        //rediriger vers accueil public
-        //sera vérifiée dans toutes les pages admin
-        //print "<br>Accès réservé aux administrateurs";
         ?>
         <meta http-equiv="refresh" content="0;URL=index.php?page=accueil.php">
         <?php

@@ -14,9 +14,11 @@
                 <li class="nav-item">
                     <a class="nav-link active .navbar-dark" aria-current="page" href="index.php?page=gestion_recettes.php">Gestion des recettes</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link active .navbar-dark" aria-current="page" href="../index.php?page=accueil.php">Vue visiteur</a>
+                </li>
             </ul>
-            <i class="fa-solid fa-user"></i><a class="nav-link" href="">compte</a>
-            <a href="../index.php?page=login.php">Connexion</a>
+            <i class="fa-solid fa-user"></i><a href="index.php?page=deconnexion.php">se deconnecter</a>
         </div>
     </div>
 </nav>

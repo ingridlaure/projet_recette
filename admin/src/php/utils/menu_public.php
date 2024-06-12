@@ -9,7 +9,6 @@
                     <a class="nav-link active .navbar-dark" aria-current="page" href="index.php?page=accueil.php">Accueil</a>
                 </li>
             </ul>
-            <i class="fa-solid fa-user"></i><a class="nav-link" href="">compte</a>
             <a href="index.php?page=login.php">Connexion</a>
 
         </div>

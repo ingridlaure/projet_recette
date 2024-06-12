@@ -7,10 +7,10 @@ $nbr = count($liste);
 
 ?>
 <div class="container ajout_chef-form">
-    <h1 class="statusMsg'">hhhhh</h1>
     <form id="form_ajout_recette" method="GET" action="" enctype="multipart/form-data">
         <h2 class="text-center">Ajout d'une recette</h2>
         <span id="error2"></span>
+        <span id="success"></span>
         <div class="form-group">
             <label for="nom_recette">Nom </label>
             <input type="text" name="nom_recette" class="form-control" id="nom_recette">
@@ -63,7 +63,7 @@ $nbr = count($liste);
             </div>
             <div class="col">
                 <div class="form-group">
-                    <label for="temps_cuisson">Temps de cuisson</label>
+                    <label for="temps_cuisson">Temps de cuisson (min)</label>
                     <input type="text" name="temps_cuisson" class="form-control" id="temps_cuisson">
                 </div>
             </div>

@@ -1,37 +1,30 @@
 $(document).ready(function () {
-    //$('select').selectpicker();
-    /*let nom="";
-    let categorie="";
-    let param="action=filtrer";
-    $('#filtre_nom').change(function () {
-        nom = $('#filtre_nom').val();
-        param += "&nom=" + nom;
-        console.log(param);
-        $.ajax({
-            url: '/admin/src/php/ajax/ajaxFilterData.php',
-            method: 'post',
-            data: param,
-            success(result) {
-                $('#show_data').html(result)
-            }
-        })
-})*/
+
+    $("#detail_titre").hide().fadeIn();
+    $("#detail_image").hide().fadeIn("slow");
+    $("#detail_ingredient").hide().fadeIn(3000);
+    $('#detail_description').hide().fadeIn(6000);
     let param = 'categorie=tous';
     $('#filtre_categorie').change(function () {
         let categorie = $('#filtre_categorie').val();
         param = "categorie=" + categorie;
         console.log(param);
-        console.log(param); $.ajax({
+        console.log(param);
+        $.ajax({
             url: './admin/src/php/ajax/ajaxListeRecette.php',
             method: 'post',
             dataType: 'html',
             data: param,
+            beforeSend: function () {
+                $('#show_data').html("<h3>Chargement...</h3>");
+            },
             success: function (result) {
                 $('#show_data').html(result)
             }
         });
     })
-    console.log(param); $.ajax({
+    console.log(param);
+    $.ajax({
         url: './admin/src/php/ajax/ajaxListeRecette.php',
         method: 'post',
         dataType: 'html',
@@ -61,6 +54,8 @@ $(document).ready(function () {
                 console.log(data);
             }
         })
+        alert("Chef enregistré avec success");
+        window.location.href = "index.php?page=gestion_chefs.php";
     })
 
     $("td[id]").click(function () {
@@ -85,18 +80,21 @@ $(document).ready(function () {
             }
         })
     })
+    let id_sup;
+    let ligne;
 
     $("i[id]").click(function () {
         console.log("bien cliqué");
+        id_sup = $(this).attr('id');
         $('#confirm').show();
+        ligne = $(this).closest('tr');
     })
     $("#submit_delete_chef").click(function () {
         console.log("bien cliqué");
         $('#confirm').hide();
-        let ligne = $(this).closest('tr');
-        let id = $(this).attr('id');
-        ligne.fadeOut();
-        let parametre = "id=" + id;
+        console.log()
+        ligne.fadeOut("slow");
+        let parametre = "id=" + id_sup;
         let retour = $.ajax({
             type: 'get',
             dataType: 'json',
@@ -126,6 +124,7 @@ $(document).ready(function () {
         console.log("bien cliqué");
         var row_id = $(this).attr('id');
         $('#row' + row_id + '').remove();
+        nombre--;
         //ligne.fadeOut();
     })
 
@@ -179,13 +178,7 @@ $(document).ready(function () {
             let categorie = $('#categorie').val();
 
             let param = 'nom_recette=' + nom_recette + '&description=' + description + '&nbre_part=' + nbre_part + '&temps=' + temps + '&chef=' + parseInt(chef) + '&niveau=' + niveau + '&categorie=' + categorie;
-            let param2 = '';
-            var ingredient = document.getElementsByName('ingredientName');
-            var quantite = document.getElementsByName('ingredientQuantity');
-            var unite = document.getElementsByName('ingredientUnit');
-            /*for (let i = 1; i <= nombre; i++) {
-                param2 +='&ingredient'+i+'='+ingredient[i].text+'&quantite'+i+'='+quantite[i].text+'&unite'+i+'='+unite[i].text;
-            }*/
+            let param2 = 'p=2';
 
             var ingredient_name = [];
             var ingredient_quantity = [];
@@ -200,7 +193,7 @@ $(document).ready(function () {
                 ingredient_unit.push($(this).val());
             });
             for (let i = 0; i < nombre; i++) {
-                param2 += 'nombre=' + nombre + '&ingredient' + i + '=' + ingredient_name[i] + '&quantity' + i + '=' + ingredient_quantity[i] + '&unit' + i + '=' + ingredient_unit[i];
+                param2 += '&nombre=' + nombre + '&ingredient' + i + '=' + ingredient_name[i] + '&quantity' + i + '=' + ingredient_quantity[i] + '&unit' + i + '=' + ingredient_unit[i];
             }
             console.log(param2);
             let retour = $.ajax({
@@ -212,7 +205,6 @@ $(document).ready(function () {
                     console.log("succes");
                     console.log(data);
                     $('#ingredient_table').find("tr:gt(0)").remove();
-                    $("#error2").html('<div class="alert alert-success">recette enregistré avec succes</div>');
                     $('#form_ajout_recette').reset();
                     console.log("succes");
                 },
@@ -224,14 +216,41 @@ $(document).ready(function () {
                 url: "./src/php/ajax/ajaxAjoutIngredient.php",
                 success: function (data) {
                     console.log("succes ingredient");
-                },
+                }
             })
-
+            $("#succes").html('<div class="alert alert-success">recette enregistré avec succes</div>');
         } else {
             $("#error").html('<div class="alert alert-danger">' + error + '</div>');
             $("#error2").html('<div class="alert alert-danger">' + error2 + '</div>');
         }
+        alert("Recette enregistré avec success");
+        window.location.href = "index.php?page=gestion_recettes.php";
     })
+    $('#form_noter').hide();
+    $('#oui_noter').click(function () {
+        $('#form_noter').show();
+    })
+
+    $('#submit_note').click(function (event) {
+        event.preventDefault();
+        let note = $('#note').val();
+        let rec = $('#id_recette_detail').val();
+        param = "recette=" + rec + "&note=" + note;
+        let retour2 = $.ajax({
+            type: 'get',
+            dataType: 'json',
+            data: param,
+            url: "admin/src/php/ajax/ajaxNoterRecette.php",
+            success: function (data) {
+                console.log("succes Note");
+
+            }
+        })
+        alert("note bien envoyé");
+        window.location.href = "index.php?page=accueil.php";
+
+    })
+
 })
 
 

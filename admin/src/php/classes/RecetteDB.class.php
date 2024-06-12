@@ -32,6 +32,23 @@ class RecetteDB
             return 0;
         }
     }
+    public function noter($recette,$note){
+        try {
+            $query = "select noter(:recette,:note)";
+            $res = $this->_bd->prepare($query);
+            $res->bindValue(':recette', $recette);
+            $res->bindValue(':note', $note);
+            $res->execute();
+            $data = $res->fetch();
+            $this->_bd->commit();
+            return $data;
+        } catch (PDOException $e) {
+            print "Echec " . $e->getMessage();
+            return 0;
+        }
+
+
+    }
 
     public function getRecttes($cond)
     {
@@ -57,79 +74,28 @@ class RecetteDB
         }
 
     }
-
-    public function getRecettesNom($nom)
+    public function getNote($rec)
     {
         try {
-            $query = "select * from recette";
-            $query .= " where nom_recette like :nom_rec";
-            $resultset = $this->_bd->prepare($query);
-            $resultset->bindValue(':nom_rec', '%' . $nom);
-            $resultset->execute();
-            $data = $resultset->fetchAll();
-            //var_dump($data);
+            $query = "select AVG(note) from note where id_recette=:id";
+            $res = $this->_bd->prepare($query);
+            $res->bindValue(':id', $rec);
+            $res->execute();
+            $data = $res->fetchAll();
             if (!empty($data)) {
                 foreach ($data as $d) {
-                    $_array[] = new Recette($d);
+                    $_array[] = $d;
                 }
                 return $_array;
             } else {
                 return null;
             }
         } catch (PDOException $e) {
-            print "Echec de la requête " . $e->getMessage();
+            print "Echec " . $e->getMessage();
         }
 
     }
 
-    public function getRecettesCategorie($categorie)
-    {
-        try {
-            $query = "select * from recette";
-            $query .= " where categorie=:cat";
-            $resultset = $this->_bd->prepare($query);
-            $resultset->bindValue(':cat', $categorie);
-            $resultset->execute();
-            $data = $resultset->fetchAll();
-            //var_dump($data);
-            if (!empty($data)) {
-                foreach ($data as $d) {
-                    $_array[] = new Recette($d);
-                }
-                return $_array;
-            } else {
-                return null;
-            }
-        } catch (PDOException $e) {
-            print "Echec de la requête " . $e->getMessage();
-        }
-
-    }
-
-    public function getRecettesNomCategorie($nom, $categorie)
-    {
-        try {
-            $query = "select * from recette";
-            $query .= " where nom_recette like :nom_rec and categorie= :cat";
-            $resultset = $this->_bd->prepare($query);
-            $resultset->bindValue(':nom_rec', '%' . $nom);
-            $resultset->bindValue(':cat', $categorie);
-            $resultset->execute();
-            $data = $resultset->fetchAll();
-            //var_dump($data);
-            if (!empty($data)) {
-                foreach ($data as $d) {
-                    $_array[] = new Recette($d);
-                }
-                return $_array;
-            } else {
-                return null;
-            }
-        } catch (PDOException $e) {
-            print "Echec de la requête " . $e->getMessage();
-        }
-
-    }
 
 }
 
